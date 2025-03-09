@@ -1,5 +1,5 @@
 // src/redux/tasksSlice.js
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {getAuthToken} from "../utils/utils";
 
@@ -11,6 +11,11 @@ const getAuthHeaders = () => {
         headers: {Authorization: token ? `Bearer ${token}` : ""}
     };
 };
+
+export const fetchProjects = createAsyncThunk('tasks/fetchProjects', async () => {
+    const response = await axios.get(`${API_URL}/projects`, getAuthHeaders());
+    return response.data;
+});
 
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (projectId, {getState}) => {
     const response = await axios.get(`${API_URL}/projects/${projectId}/tasks`, getAuthHeaders());
@@ -34,6 +39,26 @@ export const updateTask = createAsyncThunk('tasks/updateTask', async (task, {get
         status: task.status,
     }
     const response = await axios.put(`${API_URL}/tasks/${task.id}`, taskToUpdate, getAuthHeaders());
+    return response.data;
+});
+
+export const addProject = createAsyncThunk('tasks/addProject', async (project, {getState}) => {
+    const newProject = {
+        name: project.name,
+        description: project.description,
+        status: project.status,
+    }
+    const response = await axios.post(`${API_URL}/projects`, newProject, getAuthHeaders());
+    return response.data;
+});
+
+export const updateProject = createAsyncThunk('projects/updateProject', async (project, {getState}) => {
+    const projectToUpdate = {
+        name: project.name,
+        description: project.description,
+        status: project.status,
+    }
+    const response = await axios.put(`${API_URL}/projects/${project.id}`, projectToUpdate, getAuthHeaders());
     return response.data;
 });
 
@@ -62,6 +87,24 @@ const tasksSlice = createSlice({
             .addCase(fetchTasks.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
+            })
+            .addCase(fetchProjects.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchProjects.fulfilled, (state, action) => {
+                state.loading = false;
+                state.projects = action.payload
+            })
+            .addCase(fetchProjects.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+            .addCase(addProject.fulfilled, (state, action) => {
+                state.projects.push(action.payload);
+            })
+            .addCase(updateProject.fulfilled, (state, action) => {
+                state.projects = state.projects.filter(project => project.id !== action.meta.arg.id);
+                state.projects.push(action.meta.arg);
             })
             .addCase(addTask.fulfilled, (state, action) => {
                 state.tasks.push(action.payload);

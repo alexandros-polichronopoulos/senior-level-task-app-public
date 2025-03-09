@@ -47,6 +47,7 @@ public class User implements UserDetails {
 
     @Getter
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdDate;
 
     @Getter

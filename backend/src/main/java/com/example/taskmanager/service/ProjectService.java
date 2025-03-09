@@ -6,6 +6,8 @@ import com.example.taskmanager.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectService {
 
@@ -14,6 +16,15 @@ public class ProjectService {
 
     @Autowired
     private TaskService taskService;
+
+    public Project createProject(Project project) {
+        Project newProject = new Project(project.getName(), project.getDescription(), project.getStatus());
+        return projectRepository.save(newProject);
+    }
+
+    public List<Project> getAllProjects() {
+        return projectRepository.findAll();
+    }
 
     public Project findById(long id) {
         return projectRepository.findById(id).orElseThrow(() -> new IllegalStateException("Project not found"));

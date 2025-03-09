@@ -1,38 +1,39 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {addTask, updateTask} from "../redux/tasksSlice";
+import {addProject, updateProject} from "../redux/tasksSlice";
 
 const STATUS_OPTIONS = ["PLANNING", "IN_PROGRESS", "COMPLETED", "ON_HOLD", "CANCELLED"];
 
-const TaskForm = ({projectId, task, onClose}) => {
-    const [title, setTitle] = useState(task?.title || "");
-    const [description, setDescription] = useState(task?.description || "");
-    const [status, setStatus] = useState(task?.status || "PLANNING");
+const ProjectForm = ({projectId, project, onClose}) => {
+    const [id, setId] = useState(project?.id || null);
+    const [name, setName] = useState(project?.name || "");
+    const [description, setDescription] = useState(project?.description || "");
+    const [status, setStatus] = useState(project?.status || "PLANNING");
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Reset form fields when a new task is passed
-        setTitle(task?.title || "");
-        setDescription(task?.description || "");
-        setStatus(task?.status || "PLANNING");
-    }, [task]);
+        // Reset form fields when a new project is passed
+        setId(project?.id || null);
+        setName(project?.name || "");
+        setDescription(project?.description || "");
+        setStatus(project?.status || "PLANNING");
+    }, [project]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!title.trim()) return;
+        if (!name.trim()) return;
 
-        const taskData = {
-            title: title,
+        const projectData = {
+            id: id,
+            name: name,
             description: description,
-            status: status,
-            projectId: projectId,
-            id: task?.id
+            status: status
         };
 
-        if (task) {
-            dispatch(updateTask(taskData));
+        if (project) {
+            dispatch(updateProject(projectData));
         } else {
-            dispatch(addTask(taskData));
+            dispatch(addProject(projectData));
         }
 
         onClose();
@@ -41,14 +42,14 @@ const TaskForm = ({projectId, task, onClose}) => {
     return (
         <div style={styles.modalOverlay}>
             <div style={styles.modalContent}>
-                <h2 style={styles.heading}>{task ? "Edit Task" : "New Task"}</h2>
+                <h2 style={styles.heading}>{project ? "Edit Project" : "New Project"}</h2>
 
                 <form onSubmit={handleSubmit} style={styles.form}>
                     <input
                         type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Title"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Name"
                         style={styles.input}
                         required
                     />
@@ -75,7 +76,7 @@ const TaskForm = ({projectId, task, onClose}) => {
                     </select>
 
                     <button type="submit" style={styles.button}>
-                        {task ? "Update Task" : "Add Task"}
+                        {project ? "Update Project" : "Add Project"}
                     </button>
                     <button type="button" style={styles.cancelButton} onClick={onClose}>
                         Cancel
@@ -169,4 +170,4 @@ const styles = {
     },
 };
 
-export default TaskForm;
+export default ProjectForm;

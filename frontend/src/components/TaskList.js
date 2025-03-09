@@ -28,20 +28,26 @@ const TaskList = ({projectId}) => {
 
     if (loading) return <p>Loading tasks...</p>;
     if (error) return <p style={{color: "red"}}>Error loading tasks: {error}</p>;
-    if (tasks.length === 0) return <p>No tasks available.</p>;
 
     return (
         <div style={styles.container}>
-            <h2 style={styles.heading}>Project Tasks</h2>
+            <h2 style={styles.heading}>Tasks</h2>
 
-            <button onClick={() => handleOpenModal()}>New Task</button>
+            <button style={styles.addButton} onClick={() => handleOpenModal()}>New Task</button>
 
-            <ul style={styles.list}>
+            {(tasks.length === 0) && <p>No tasks available.</p>}
+
+            {(tasks.length !== 0) &&
+                <ul style={styles.list}>
                 {tasks.map((task) => (
                     <li key={task.id} style={styles.taskItem}>
                         <div style={styles.taskInfo}>
-                            <h3 style={styles.taskTitle}>{task.title}</h3>
-                            <p style={styles.description}>{task.description}</p>
+                            <h3 style={styles.taskTitle}>
+                                <strong>Title:</strong> {task.title}
+                            </h3>
+                            <p style={styles.description}>
+                                <strong>Description:</strong> {task.description}
+                            </p>
                             <p style={styles.status}>
                                 <strong>Status:</strong> {task.status}
                             </p>
@@ -62,7 +68,7 @@ const TaskList = ({projectId}) => {
                     </li>
                 ))}
             </ul>
-
+            }
 
             {isModalOpen && (
                 <TaskForm
@@ -81,6 +87,8 @@ const styles = {
         maxWidth: "600px",
         margin: "20px auto",
         padding: "15px",
+        paddingBottom: '20px',
+        marginBottom: '20px',
         borderRadius: "8px",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         backgroundColor: "#fff",
@@ -134,6 +142,16 @@ const styles = {
     },
     editButton: {
         backgroundColor: "#3578dc",
+        color: "#fff",
+        border: "none",
+        padding: "8px 12px",
+        margin: "5px",
+        borderRadius: "4px",
+        cursor: "pointer",
+        transition: "background 0.2s",
+    },
+    addButton: {
+        backgroundColor: "#35dc89",
         color: "#fff",
         border: "none",
         padding: "8px 12px",

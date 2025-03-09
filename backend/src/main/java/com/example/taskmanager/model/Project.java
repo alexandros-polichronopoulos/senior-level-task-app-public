@@ -16,6 +16,12 @@ import java.util.List;
 @Table(name = "projects")
 public class Project {
 
+    public Project(String name, String description, ProgressStatus status) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
+
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +45,7 @@ public class Project {
 
     @Getter
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdDate;
 
     @Getter

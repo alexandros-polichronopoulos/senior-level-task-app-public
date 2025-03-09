@@ -10,6 +10,7 @@ const UserManagement = () => {
     useEffect(() => {
         if (token) {
             setIsLoggedIn(true);
+            window.dispatchEvent(new Event("tokenChanged"));
         }
     }, [token]);
 
@@ -44,6 +45,7 @@ const UserManagement = () => {
         removeAuthToken()
         setCredentials({username: "", password: ""})
         setIsLoggedIn(false);
+        window.dispatchEvent(new Event("tokenChanged"));
     };
 
     if (isLoggedIn) {
