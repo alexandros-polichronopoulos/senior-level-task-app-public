@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/senior-level-task-app-public/static/css/main.e6c13ad2.css",
-    "main.js": "/senior-level-task-app-public/static/js/main.d9425ec9.js",
+    "main.js": "/senior-level-task-app-public/static/js/main.19bde999.js",
     "static/media/logo.png": "/senior-level-task-app-public/static/media/logo.b90efd34570edd3b159f.png",
     "index.html": "/senior-level-task-app-public/index.html",
     "main.e6c13ad2.css.map": "/senior-level-task-app-public/static/css/main.e6c13ad2.css.map",
-    "main.d9425ec9.js.map": "/senior-level-task-app-public/static/js/main.d9425ec9.js.map"
+    "main.19bde999.js.map": "/senior-level-task-app-public/static/js/main.19bde999.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.d9425ec9.js"
+    "static/js/main.19bde999.js"
   ]
 }
