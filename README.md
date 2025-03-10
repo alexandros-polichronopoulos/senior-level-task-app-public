@@ -11,6 +11,7 @@ _Tool requirements: `docker`_
 # Backend
 
 To run the backend service, use:
+
 ```bash
 cd backend
 mvn clean package -Dmaven.test.skip=true
@@ -19,9 +20,16 @@ mvn spring-boot:run
 
 _Tool requirements: `maven`, `java 17`_
 
+## Deploy frontend to github pages
+
+```bash
+cd frontend && npm run deploy
+```
+
 # Frontend
 
 To run the frontend service, use:
+
 ```bash
 cd frontend && npm install && npm start
 ```
