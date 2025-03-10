@@ -13,7 +13,7 @@ _Tool requirements: `docker`_
 To run the backend service, use:
 ```bash
 cd backend
-mvn clean install -Dmaven.test.skip=true
+mvn clean package -Dmaven.test.skip=true
 mvn spring-boot:run
 ```
 
