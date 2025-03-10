@@ -2,8 +2,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {getAuthToken} from "../utils/utils";
-
-const API_URL = 'http://localhost:8080'; // Update with your backend API URL
+import API_URL from "../utils/config";
 
 const getAuthHeaders = () => {
     const token = getAuthToken()
