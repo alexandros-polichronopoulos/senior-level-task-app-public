@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {getAuthToken, removeAuthToken, setAuthToken} from "../utils/utils";
+import API_URL from "../utils/config";
 
 const UserManagement = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,7 +23,7 @@ const UserManagement = () => {
         e.preventDefault();
         const endpoint = isRegistering ? "register" : "login";
         try {
-            const response = await fetch(`http://localhost:8080/${endpoint}`, {
+            const response = await fetch(`${API_URL}/${endpoint}`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(credentials),

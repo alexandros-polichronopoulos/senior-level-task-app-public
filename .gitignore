@@ -81,7 +81,7 @@ dist-ssr
 .env.test.local
 .env.production.local
 
-
+**/build
 yarn.lock
 pnpm-lock.yaml
 package-lock.json

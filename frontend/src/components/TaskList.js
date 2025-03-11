@@ -72,7 +72,7 @@ const TaskList = ({projectId}) => {
 
             {isModalOpen && (
                 <TaskForm
-                    projectId={1}
+                    projectId={projectId}
                     task={selectedTask}
                     onClose={() => setModalOpen(false)}
                 />
