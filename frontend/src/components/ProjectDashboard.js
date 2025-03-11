@@ -50,12 +50,13 @@ const ProjectDashboard = () => {
                 ))}
             </select>}
 
+            <div>
+                <button style={styles.addButton} onClick={() => handleOpenModal()}>New Project</button>
+            </div>
+
             {projectId && (
                 <>
                     <button style={styles.editButton} onClick={() => handleOpenModal({projectId})}>Project Details</button>
-                    <div>
-                        <button style={styles.addButton} onClick={() => handleOpenModal()}>New Project</button>
-                    </div>
                     <TaskList projectId={projectId} />
                 </>
             )}
